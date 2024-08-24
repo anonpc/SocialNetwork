@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Network start page</title>
+</head>
+<body>
+    <h3>Добро пожаловать в Social Network!</h3>
+    <p th:text="'Вы посетили эту страницу - ' + ${date}"></p>
+
+    <a href="/chat/all">Все чаты</a>
+    <br>
+    <a href="/user/all">Все пользователи</a>
+</body>
+</html>

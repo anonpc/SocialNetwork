@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", Arial, sans-serif;
+            text-align: center;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-network-logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .social-network-logo:hover {
+            color: #7181ee;
+        }
+
+        .logout-button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 7px 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #7181ee;
+            color: white;
+        }
+
+        /* Стили для остального контента */
+        .messaging {
+            margin-top: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .message-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .send-button {
+            background-color: #7181ee;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .send-button:hover {
+            background-color: #5467a0;
+        }
+
+        .message-history {
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Центрирование по горизонтали и вертикали */
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <a class="social-network-logo" href="/profile">Social Network</a>
+    <form class="logout-button" th:action="@{/auth/logout}" method="post">
+        <button class="logout-button" type="submit">LogOut</button>
+    </form>
+</div>
+<h2>Welcome to ChatGpt (GPT-3.5)</h2>
+<!-- Центрированное содержимое -->
+<div class="centered-content">
+    <!-- ChatGpt messaging -->
+
+    <div class="messaging">
+        <div class="message-history">
+            <!-- Здесь будут отображаться история сообщений -->
+            <div th:if="${chatResponse.isEmpty()}">
+                <p>Список сообщений пуст!</p>
+            </div>
+            <div th:unless="${chatResponse.isEmpty()}">
+                <ul>
+                    <p th:each="message : ${chatResponse}">
+                    <span>
+<!--            <span style="color: red;" th:text="${message.getUser().getUsername()}"></span>-->
+            <span> -> </span>
+            <span th:text="${message.text}"></span>
+        </span>
+                    </p>
+                </ul>
+            </div>
+        </div>
+        <div class="message-box">
+            <form class="message-form" method="post" th:action="'/profile/chatGptMessaging'">
+                <input type="text" class="message-input" name="messageToGpt" placeholder="Введите сообщение...">
+                <button class="send-button">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

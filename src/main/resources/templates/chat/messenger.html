@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", Arial, sans-serif;
+            /*background-image: url('https://phonoteka.org/uploads/posts/2021-04/1619501225_16-phonoteka_org-p-fon-dlya-chata-v-vaibere-16.jpg');*/
+            /*background-image: url("https://i.pinimg.com/originals/35/27/38/352738b5d26be358e3cf2b3cfcdd36af.jpg");*/
+            /*https://i.pinimg.com/originals/7f/e1/2d/7fe12dc9e459d23189ff752e64866691.jpg*/
+            /*background-image: url("https://i.pinimg.com/originals/7f/e1/2d/7fe12dc9e459d23189ff752e64866691.jpg");*/
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between; /* Добавлено выравнивание элементов */
+            align-items: center;
+        }
+
+        .social-network-logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff; /* Цвет надписи */
+        }
+
+        .social-network-logo:hover {
+            color: #7181ee; /* Цвет надписи при наведении курсора */
+        }
+
+
+        .logout-button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 14px; /* Скругление углов кнопки */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #7181ee;
+            color: white;
+        }
+
+        /* Стили для списка чатов */
+        .chat-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chat-list li {
+            margin-bottom: 10px;
+        }
+
+        .chat-list a {
+            display: block;
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-list a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .create-chat-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .create-chat-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-chat-button a:hover {
+            background-color: #333;
+        }
+
+        .create-chat-button button {
+            background-color: transparent;
+            color: white;
+            border: none;
+        }
+
+
+        /* Стили для области чата */
+        .chat-interface {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для списка сообщений */
+        .message-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .message-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Стили для формы отправки сообщения */
+        .message-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .message-form input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .message-form button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .message-form button:hover {
+            background-color: blue;
+            color: white;
+        }
+
+        .message-form {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-form input[type="text"] {
+            flex: 1;
+            width: calc(100% - 80px); /* Растянуть, учитывая ширину кнопки отправки */
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .message-form button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .message-form button:hover {
+            background-color: blue;
+            color: white;
+        }
+
+        /* Новые стили для заголовка чата */
+        .chat-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <a class="social-network-logo" href="/profile">Social Network</a>
+    <form class="logout-button" th:action="@{/auth/logout}" method="post">
+        <button class="logout-button" type="submit">LogOut</button>
+    </form>
+</div>
+
+<!-- Элементы для отображения интерфейса чата -->
+<div class="chat-interface">
+    <div class="chat-title" th:text="${chat.name}"></div>
+    <div class="message-list">
+        <div th:if="${chat.messages.isEmpty()}">
+            <p>Список сообщений пуст!</p>
+        </div>
+        <div th:unless="${chat.messages.isEmpty()}">
+            <ul>
+                <p th:each="message : ${chat.messages}">
+                    <span>
+            <span style="color: red;" th:text="${message.getTimeOfSend()} + ' | ' + ${message.getUser().getUsername()}"></span>
+            <span> -> </span>
+            <span th:text="${message.text}"></span>
+        </span>
+                </p>
+            </ul>
+        </div>
+    </div>
+    <form class="message-form" method="post" th:action="'/profile/chat/join/' + ${chat.id} + '/sendMessage'">
+        <input type="text" name="message" placeholder="Введите сообщение">
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>News Feed</title>
+    <style>
+        /*HEADER*/
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", Arial, sans-serif;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between; /* Добавлено выравнивание элементов */
+            align-items: center;
+        }
+
+        .social-network-logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff; /* Цвет надписи */
+        }
+
+        .social-network-logo:hover {
+            color: #7181ee; /* Цвет надписи при наведении курсора */
+        }
+
+        .logout-button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 14px; /* Скругление углов кнопки */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #7181ee;
+            color: white;
+        }
+
+        /*--------------*/
+
+        h1 {
+            text-align: center;
+            font-family: "Roboto", Arial, sans-serif;
+            padding: 5px 10px;
+            background: #0051e5;
+            color: white;
+            margin-inline-start: 200px;
+            margin-inline-end: 200px;
+            border-radius: 10px;
+
+        }
+
+        .news-feed-block {
+            padding: 5px 10px;
+            background-color: #efefef;
+            border-radius: 10px;
+            border-color: #333333;
+            margin-inline-start: 200px;
+            margin-inline-end: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <a class="social-network-logo" href="/profile">Social Network</a>
+    <form class="logout-button" th:action="@{/auth/logout}" method="post">
+        <button class="logout-button" type="submit">LogOut</button>
+    </form>
+</div>
+
+<!-- Список всех постов -->
+<h1>User's post list</h1>
+<form class="news-feed-block">
+    <div th:if="${allNews.isEmpty()}">
+        <p>Список постов пуст!</p>
+    </div>
+
+    <div th:unless="${allNews.isEmpty()}">
+        <ul>
+            <li th:each="news : ${allNews}">
+                <span th:text="'Автор поста: ' + ${news.user} + ' | '"></span>
+                <span th:text="'Дата создания: ' + ${news.dateOfCreated}"></span>
+                <br>
+                <span style="font-family: 'Comic Sans MS'" th:text="${news.content}"></span>
+                </br>
+                </br>
+            </li>
+        </ul>
+    </div>
+</form>
+
+
+
+</body>
+</html>
